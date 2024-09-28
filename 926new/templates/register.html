@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注册页面</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .register-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="register-container">
+  <h2>注册</h2>
+  <form id="registerForm" action="http://localhost:8080/register" method="post">
+    <input type="text" id="username" name="username" placeholder="用户名" required>
+    <input type="password" id="password" name="password" placeholder="输入密码" required onkeyup="validatePassword()">
+    <input type="password" id="confirmPassword" placeholder="确认密码" required onkeyup="validatePassword()">
+    <button type="submit">注册</button>
+    <div class="error-message" id="errorMessage"></div>
+  </form>
+</div>
+
+<script>
+  function validatePassword() {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const errorMessage = document.getElementById("errorMessage");
+
+    if (password !== confirmPassword) {
+      errorMessage.textContent = "密码不匹配！";
+      return false;
+    } else {
+      errorMessage.textContent = "";
+      return true;
+    }
+  }
+
+  document.getElementById('registerForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // 防止默认提交
+
+    if (!validatePassword()) {
+      return; // 如果密码不匹配，停止提交
+    }
+
+    const formData = new FormData(this); // 获取表单数据
+
+    const response = await fetch(this.action, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+    const errorMessageDiv = document.getElementById('errorMessage');
+    errorMessageDiv.textContent = ''; // 清空错误信息
+
+    if (response.ok) {
+      alert("注册成功！"); // 弹出成功信息
+      // 可以选择重定向或其他操作
+      const username = document.getElementById("username").value; // 获取用户名
+      window.location.href = `/login?username=${encodeURIComponent(username)}`; // 重定向到登录页面并传入用户名
+    } else {
+      errorMessageDiv.textContent = result.error || "注册失败，请重试。"; // 显示错误信息
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .product.Name }} - 商品详情</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .product-info {
+      margin-bottom: 20px;
+    }
+
+    .product-info p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .price {
+      font-size: 24px;
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>{{ .product.Name }}</h1>
+  <!--<img src="product{{ .product.Id }}.jpg" alt="{{ .product.Name }}">-->
+  <p>分类： {{ .product.Category }}</p>
+  <p class="price">价格：￥{{ .product.Price }}</p>
+  <p>{{ .product.Description }}</p>
+  <p>库存：{{ .product.Stock }} 件</p>
+
+  <button>加入购物车</button>
+</div>
+
+<footer>
+  <p>&copy; 2024 电商平台. 保留所有权利.</p>
+</footer>
+
+</body>
+</html>
