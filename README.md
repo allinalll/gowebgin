@@ -5,7 +5,7 @@ demo
 数据库创建
 gomarket
 表格
-CREATE TABLE Product (
+CREATE TABLE product (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     Description TEXT,
@@ -15,7 +15,7 @@ CREATE TABLE Product (
 );
 
 
-CREATE TABLE User (
+CREATE TABLE user (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(100) NOT NULL UNIQUE,
     Password VARCHAR(255) NOT NULL
